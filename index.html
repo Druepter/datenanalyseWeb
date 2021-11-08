@@ -67,12 +67,34 @@
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
 			// - https://revealjs.com/config/
-			Reveal.initialize({
+			Reveal.Reveal.initialize({
 				hash: true,
-
+				
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
+			
+			const {ScormProcessGetValue, ScormProcessInitialize, ScormProcessSetValue, ScormProcessTerminate, initialized} = Reveal;
+			function terminate() {
+        		ScormProcessTerminate();
+      		}
+      		if (!initialized) {
+        		ScormProcessInitialize();
+      		}
+			console.log(ScormProcessSetValue('cmi.score.raw', 50));
+			console.log(ScormProcessSetValue('cmi.score.min', 0));
+			console.log(ScormProcessSetValue('cmi.score.max', 100));
+			console.log(ScormProcessSetValue('cmi.completion_status', 'completed'));
+			console.log(ScormProcessSetValue('cmi.success_status', 'passed'));
+			const env = {
+				CMI_VERSION: ScormProcessGetValue('cmi._version', true),
+				LEARNER_ID: ScormProcessGetValue('cmi.learner_id', true),
+				LEARNER_NAME: ScormProcessGetValue('cmi.learner_name', true),
+				SCORE_MIN: ScormProcessGetValue('cmi.score.min', true),
+				SCORE_MAX: ScormProcessGetValue('cmi.score.max', true),
+				SCORE: ScormProcessGetValue('cmi.score.raw', true),
+			};
+			console.log(env);
 		</script>
 	</body>
 </html>
