@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/white.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		
+		
+		<script>
+		
+			let submissionObject ={};
+		
+			function handleQuestionsSubmission(event){
+				
+				console.log("huhu");
+				event.preventDefault();
+				//event.stopPropagation();
+				console.log(event.submitter);
+				console.log(event);
+				for(const input of event.target.children) {
+					if(input.checked) {
+						submissionObject[event.target.id] = input.value;
+					}
+				}
+				console.log(submissionObject);
+			}
+		
+			//document.getElementById("5").addEventListener("submit", handleQuestionsSubmission);
+		
+		</script>
+		
+		
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>Slide 1</section>
+				<section>Unter welche Kategorie des Lernens fällt die Klassifizierung?
+				
+					<form id="question1" onsubmit="handleQuestionsSubmission(event)">
+						<label for="1">Unsupervised Learning</label>
+						<input type="radio" id="1" value="unsupervisedLearning" name="frage1"></input>
+						<br>
+						<label for="2">Supervised Learning</label>
+						<input type="radio" id="2" value="supervisedLearning" name="frage1"></input>		
+						<br>		
+						<button type="submit">Submit</button>
+					</form>
+				
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
