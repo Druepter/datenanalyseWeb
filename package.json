@@ -10,7 +10,8 @@
   "scripts": {
     "test": "gulp test",
     "start": "gulp serve",
-    "build": "gulp build"
+    "build": "gulp build",
+    "postbuild": " cp index.html build/ && cp -r dist build/ && cp -r plugin build/ && cp imsmanifest.xml build/"
   },
   "author": {
     "name": "Hakim El Hattab",
