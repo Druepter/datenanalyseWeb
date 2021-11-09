@@ -67,14 +67,14 @@
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
 			// - https://revealjs.com/config/
-			Reveal.Reveal.initialize({
+			App.Reveal.initialize({
 				hash: true,
 				
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
 			
-			const {ScormProcessGetValue, ScormProcessInitialize, ScormProcessSetValue, ScormProcessTerminate, initialized} = Reveal;
+			const {ScormProcessGetValue, ScormProcessInitialize, ScormProcessSetValue, ScormProcessTerminate, initialized} = App.Scorm;
 			function terminate() {
         		ScormProcessTerminate();
       		}

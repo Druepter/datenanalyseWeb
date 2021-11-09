@@ -1,11 +1,5 @@
 import Deck, { VERSION } from './reveal.js';
-import {
-  ScormProcessGetValue,
-  ScormProcessInitialize,
-  ScormProcessSetValue,
-  ScormProcessTerminate,
-  initialized,
-} from './scormfunctions';
+import * as Scorm from './scormfunctions';
 /**
  * Expose the Reveal class to the window. To create a
  * new instance:
@@ -67,9 +61,5 @@ Reveal.VERSION = VERSION;
 
 export default {
   Reveal,
-  ScormProcessGetValue,
-  ScormProcessInitialize,
-  ScormProcessSetValue,
-  ScormProcessTerminate,
-  initialized,
+  Scorm,
 };
