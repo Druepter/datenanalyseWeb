@@ -18,23 +18,37 @@
 
     <script>
       let submissionObject = {};
-
-      function handleQuestionsSubmission(event) {
-        console.log('huhu');
-        event.preventDefault();
-        //event.stopPropagation();
-        console.log(event.submitter);
-        console.log(event);
-        for (const input of event.target.children) {
-          if (input.checked) {
-            submissionObject[event.target.id] = input.value;
-          }
+      function getAnswerForInput(input) {
+        if (input.type === 'radio') {
+          return input.checked;
+        } else if (input.type === 'checkbox') {
+          return input.checked;
+        } else {
+          return input.value;
         }
+      }
+      function checkAnswerForTask(taskId) {
+        const correctAnswerIds =
+          event.target.attributes['data-task-correct-answer-ids'].value;
+        const validAnswer = checkAnswers(correctAnswerIds.split(','));
+        for (const correctAnswerId of correctAnswerIds) {
+          const answer = getAnswerForInput(
+            document.getElementById(correctAnswerId)
+          );
+          // TODO: Add check for string inputs
+          if (answer) return answer;
+        }
+      }
+      function handleQuestionsSubmission(event) {
+        event.preventDefault();
+        const taskId = event.target.id;
+        const validAnswer = checkAnswerForTask(taskId);
+        const pointsForTask = event.target.attributes['data-task-points'].value;
+        const points = validAnswer ? pointsForTask : 0;
+        submissionObject[taskId] = { id: taskId, points };
         console.log(submissionObject);
         terminate();
       }
-
-      //document.getElementById("5").addEventListener("submit", handleQuestionsSubmission);
     </script>
   </head>
   <body>
@@ -43,22 +57,26 @@
         <section>Slide 1</section>
         <section>
           Unter welche Kategorie des Lernens fällt die Klassifizierung?
-
-          <form id="question1" onsubmit="handleQuestionsSubmission(event)">
-            <label for="1">Unsupervised Learning</label>
+          <form
+            id="task1"
+            onsubmit="handleQuestionsSubmission(event)"
+            data-task-points="10"
+            data-task-correct-answer-ids="task1-answer1"
+          >
+            <label for="task1-answer1">Unsupervised Learning</label>
             <input
               type="radio"
-              id="1"
+              id="task1-answer1"
               value="unsupervisedLearning"
-              name="frage1"
+              name="task1"
             />
             <br />
-            <label for="2">Supervised Learning</label>
+            <label for="task1-answer2">Supervised Learning</label>
             <input
               type="radio"
-              id="2"
+              id="task1-answer2"
               value="supervisedLearning"
-              name="frage1"
+              name="task1"
             />
             <br />
             <button type="submit">Submit</button>
